@@ -16,7 +16,7 @@ class CountryViewModel(
     private val _uiState = MutableStateFlow(CountryUiState())
     val uiState = _uiState.asStateFlow()
 
-    private var favoriteCountry: Country? = null
+    private val favorites = mutableListOf<Country>()
 
     fun searchCountry(name: String) {
         if (name.isBlank()) return
@@ -28,11 +28,14 @@ class CountryViewModel(
                 val country = getCountryUseCase(name.trim().lowercase())
 
                 val finalCountry =
-                    if (favoriteCountry?.name == country.name) {
+                    if (favorites.any { it.name == country.name }) {
                         country.copy(isFavorite = true)
                     } else country
 
-                _uiState.value = CountryUiState(country = finalCountry)
+                _uiState.value = CountryUiState(
+                    country = finalCountry,
+                    favorites = favorites.toList()
+                )
             } catch (e: Exception) {
                 _uiState.value = CountryUiState(error = "Country not found")
             }
@@ -42,16 +45,39 @@ class CountryViewModel(
     fun toggleFavorite() {
         val current = _uiState.value.country ?: return
 
-        val updated = current.copy(isFavorite = !current.isFavorite)
-        favoriteCountry = if (updated.isFavorite) updated else null
+        if (favorites.any { it.name == current.name }) {
+            favorites.removeAll { it.name == current.name }
+        } else {
+            favorites.add(current.copy(isFavorite = true))
+        }
 
-        _uiState.value = _uiState.value.copy(country = updated)
-    }
-    fun togglePopulationFilter() {
-        val current = _uiState.value
-        _uiState.value = current.copy(
-            showOnlyHighPopulation = !current.showOnlyHighPopulation
+        val updated = current.copy(isFavorite = !current.isFavorite)
+
+        _uiState.value = _uiState.value.copy(
+            country = updated,
+            favorites = favorites.toList()
         )
+    }
+    fun toggleFavoriteFromList(country: Country) {
+        favorites.removeAll { it.name == country.name }
+
+        val current = _uiState.value.country
+        val updatedCurrent =
+            if (current?.name == country.name)
+                current.copy(isFavorite = false)
+            else current
+
+        _uiState.value = _uiState.value.copy(
+            country = updatedCurrent,
+            favorites = favorites.toList()
+        )
+    }
+    fun setRegion(region: String) {
+        _uiState.value = _uiState.value.copy(selectedRegion = region)
+    }
+
+    fun setMinPopulation(pop: Int) {
+        _uiState.value = _uiState.value.copy(minPopulation = pop)
     }
 
 }

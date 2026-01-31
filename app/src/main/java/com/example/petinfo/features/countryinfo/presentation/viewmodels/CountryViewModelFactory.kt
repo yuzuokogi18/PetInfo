@@ -2,7 +2,6 @@ package com.example.petinfo.features.countryinfo.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.petinfo.features.countryinfo.data.repositories.CountryRepositoryImpl
 import com.example.petinfo.features.countryinfo.domain.usecases.GetCountryUseCase
 
 class CountryViewModelFactory(

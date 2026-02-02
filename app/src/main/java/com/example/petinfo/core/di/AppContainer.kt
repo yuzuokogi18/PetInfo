@@ -9,16 +9,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class AppContainer(context: Context) {
 
-    private val retrofit: Retrofit = Retrofit.Builder()
+    private val retrofit = Retrofit.Builder()
         .baseUrl("https://restcountries.com/v3.1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val countriesApi: CountriesApi by lazy {
+    val countriesApi: CountriesApi =
         retrofit.create(CountriesApi::class.java)
-    }
 
-    val countryRepository: CountryRepository by lazy {
+    val countryRepository: CountryRepository =
         CountryRepositoryImpl(countriesApi)
-    }
 }

@@ -1,6 +1,5 @@
 package com.example.petinfo.features.countryinfo.data.datasources.remote.maper
 
-
 import com.example.petinfo.features.countryinfo.data.datasources.remote.model.CountryDto
 import com.example.petinfo.features.countryinfo.domain.entites.Country
 
@@ -14,4 +13,5 @@ fun CountryDto.toDomain(): Country {
         region = region
     )
 }
+
 

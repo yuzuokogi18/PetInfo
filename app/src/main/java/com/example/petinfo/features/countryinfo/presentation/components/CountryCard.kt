@@ -5,12 +5,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.petinfo.features.countryinfo.domain.entites.Country
-import com.example.petinfo.ui.theme.*
 
 @Composable
 fun CountryCard(
@@ -19,7 +17,10 @@ fun CountryCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = CardBackground)
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(6.dp)
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
@@ -46,7 +47,9 @@ fun CountryCard(
                 onClick = onFavorite,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (country.isFavorite)
-                        FavoriteRed else BlueSecondary
+                        MaterialTheme.colorScheme.error
+                    else
+                        MaterialTheme.colorScheme.secondary
                 ),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -54,14 +57,12 @@ fun CountryCard(
                     if (country.isFavorite)
                         "Quitar de favoritos"
                     else
-                        "Agregar a favoritos",
-                    color = Color.White
+                        "Agregar a favoritos"
                 )
             }
         }
     }
 }
-
 
 @Composable
 fun InfoRow(label: String, value: String) {
@@ -73,13 +74,17 @@ fun InfoRow(label: String, value: String) {
         Text(
             text = label,
             fontSize = 12.sp,
-            color = TextSecondary
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
             text = value,
             style = MaterialTheme.typography.bodyLarge,
-            color = TextPrimary
+            color = MaterialTheme.colorScheme.onSurface
         )
-        Divider(modifier = Modifier.padding(top = 6.dp))
+        Divider(
+            modifier = Modifier.padding(top = 6.dp),
+            thickness = 0.5.dp,
+            color = MaterialTheme.colorScheme.surfaceVariant
+        )
     }
 }

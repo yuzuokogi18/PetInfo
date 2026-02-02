@@ -6,11 +6,13 @@ import com.example.petinfo.features.countryinfo.domain.entites.Country
 data class CountryUiState(
     val isLoading: Boolean = false,
     val country: Country? = null,
+    val countryList: List<Country> = emptyList(),
     val favorites: List<Country> = emptyList(),
     val selectedRegion: String = "All",
     val minPopulation: Int = 0,
     val error: String? = null
 )
+
 
 
 

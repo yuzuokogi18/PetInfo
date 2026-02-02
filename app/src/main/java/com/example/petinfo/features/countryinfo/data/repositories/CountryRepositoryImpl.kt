@@ -10,6 +10,10 @@ class CountryRepositoryImpl(
 ) : CountryRepository {
 
     override suspend fun getCountry(name: String): Country {
-        return api.getCountryByName(name).first().toDomain()
+        return api.getCountryByName(name)[0].toDomain()
+    }
+
+    override suspend fun getCountriesByRegion(region: String): List<Country> {
+        return api.getCountriesByRegion(region).map { it.toDomain() }
     }
 }

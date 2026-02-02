@@ -8,29 +8,45 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Color
 
 private val LightColorScheme = lightColorScheme(
-    primary = BluePrimary,
-    secondary = BlueSecondary,
-    background = LightBackground,
-    surface = CardBackground,
+    primary = PrimaryBlue,
+    secondary = SecondaryBlue,
+    tertiary = AccentCyan,
+
+    background = BackgroundLight,
+    surface = SurfaceLight,
+
     onPrimary = Color.White,
     onSecondary = Color.White,
-    onBackground = TextPrimary,
-    onSurface = TextPrimary
+    onTertiary = Color.White,
+
+    onBackground = TextPrimaryLight,
+    onSurface = TextPrimaryLight,
+
+    error = FavoriteRed
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BlueSecondary,
-    background = Color(0xFF121212),
-    surface = Color(0xFF1E1E1E),
+    primary = SecondaryBlue,
+    secondary = AccentCyan,
+    tertiary = PrimaryBlue,
+
+    background = BackgroundDark,
+    surface = SurfaceDark,
+
     onPrimary = Color.White,
-    onBackground = Color.White,
-    onSurface = Color.White
+    onSecondary = Color.White,
+    onTertiary = Color.White,
+
+    onBackground = TextPrimaryDark,
+    onSurface = TextPrimaryDark,
+
+    error = FavoriteRed
 )
 
 @Composable
 fun PetInfoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // 👈 mejor desactivado para que se vea igual
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

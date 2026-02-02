@@ -9,14 +9,6 @@ data class Country(
     val region: String,
     val isFavorite: Boolean = false
 ) {
-    val populationLabel: String
-        get() = when {
-            population > 100_000_000 -> "País con población alta"
-            population < 10_000_000 -> "País con población baja"
-            else -> "País con población media"
-        }
-
     val populationReadable: String
         get() = "%,d".format(population)
 }
-
